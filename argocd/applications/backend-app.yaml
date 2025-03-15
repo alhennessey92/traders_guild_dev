@@ -4,13 +4,14 @@ metadata:
   name: backend-infra
   namespace: argocd
 spec:
+  project: tg-project
   destination:
     namespace: backend
     server: https://kubernetes.default.svc
   source:
-    repoURL: 'https://github.com/YOUR_GITHUB_REPO'
+    repoURL: https://github.com/alhennessey92/traders_guild_dev.git
     targetRevision: HEAD
-    path: 'backend-stack'
+    path: 'traders_guild_dev'
   syncPolicy:
     automated:
       prune: true
