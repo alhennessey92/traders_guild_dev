@@ -4,7 +4,7 @@ metadata:
   name: backend-infra
   namespace: argocd
 spec:
-  project: backend-infra
+  project: default
   destination:
     namespace: backend
     server: https://kubernetes.default.svc
