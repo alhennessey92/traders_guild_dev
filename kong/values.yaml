@@ -1,0 +1,4 @@
+ingressController:
+  installCRDs: false
+proxy:
+  type: LoadBalancer

@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: backend-infra
+  namespace: argocd
+spec:
+  destination:
+    namespace: backend
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: 'https://github.com/YOUR_GITHUB_REPO'
+    targetRevision: HEAD
+    path: 'backend-stack'
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
