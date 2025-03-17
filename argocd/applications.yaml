@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: infrastructure-apps
+  namespace: argocd
+spec:
+  generators:
+  - list:
+      elements:
+      - name: kong
+        chart: kong
+        repo: https://charts.konghq.com
+        targetRevision: "2.21.0"
+        namespace: kong
+        valuesFile: kong/values.yaml
+      - name: redis-sentinel
+        chart: redis
+        repo: https://charts.bitnami.com/bitnami
+        targetRevision: "17.3.2"
+        namespace: redis
+        valuesFile: redis-sentinel/values.yaml
+      - name: timescaledb
+        chart: postgresql
+        repo: https://charts.bitnami.com/bitnami
+        targetRevision: "11.2.0"
+        namespace: timescaledb
+        valuesFile: timescaledb/values.yaml
+  template:
+    metadata:
+      name: "{{name}}"
+    spec:
+      project: default
+      source:
+        repoURL: "{{repo}}"
+        targetRevision: "{{targetRevision}}"
+        chart: "{{chart}}"
+        helm:
+          valueFiles:
+            - "{{valuesFile}}"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{namespace}}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true

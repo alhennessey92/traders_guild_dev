@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: infrastructure
+  namespace: argocd
+spec:
+  description: "Project for managing Kong, Redis Sentinel, and TimescaleDB"
+  
+  # Allow applications from these Git repositories (update with your Git repo URL)
+  sourceRepos:
+    - https://github.com/your-org/your-infra-repo.git
+    - https://charts.konghq.com
+    - https://charts.bitnami.com/bitnami
+
+  # Allow deployments only to these namespaces
+  destinations:
+    - namespace: kong
+      server: https://kubernetes.default.svc
+    - namespace: redis
+      server: https://kubernetes.default.svc
+    - namespace: timescaledb
+      server: https://kubernetes.default.svc
+
+  # Allow only specific cluster-wide Kubernetes resources
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "CustomResourceDefinition"
+
+  # Enable role-based access control (RBAC) within this project
+  roles:
+    - name: developer
+      description: "Allow developers to sync applications but not delete them"
+      policies:
+        - "p, proj:infrastructure:developer, applications, sync, infrastructure/*, allow"
+      groups:
+        - developers
+
+  # Enable automatic sync waves for managed applications
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

@@ -1,0 +1,12 @@
+auth:
+  enabled: true
+  existingSecret: redis-secret
+  sentinelPasswordKey: sentinel-password
+  redisPasswordKey: redis-password
+
+sentinel:
+  enabled: true
+  replicas: 3
+
+redis:
+  replicas: 3
