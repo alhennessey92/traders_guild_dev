@@ -29,7 +29,7 @@ spec:
     metadata:
       name: "{{name}}"
     spec:
-      project: default
+      project: infrastructure
       source:
         repoURL: "{{repo}}"
         targetRevision: "{{targetRevision}}"

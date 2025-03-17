@@ -8,7 +8,7 @@ spec:
   
   # Allow applications from these Git repositories (update with your Git repo URL)
   sourceRepos:
-    - https://github.com/your-org/your-infra-repo.git
+    - https://github.com/alhennessey92/traders_guild_dev.git
     - https://charts.konghq.com
     - https://charts.bitnami.com/bitnami
 
@@ -35,8 +35,8 @@ spec:
       groups:
         - developers
 
-  # Enable automatic sync waves for managed applications
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+  # # Enable automatic sync waves for managed applications
+  # syncPolicy:
+  #   automated:
+  #     prune: true
+  #     selfHeal: true
