@@ -12,7 +12,7 @@ spec:
         repo: https://charts.konghq.com
         targetRevision: "2.21.0"
         namespace: kong
-        valuesFile: /values.yaml
+        valuesFile: values.yaml
       - name: redis-sentinel
         chart: redis
         repo: https://charts.bitnami.com/bitnami
