@@ -3,44 +3,106 @@ kind: ApplicationSet
 metadata:
   name: infrastructure-apps
   namespace: argocd
+
 spec:
-  generators:
-  - list:
-      elements:
-      - name: kong
-        chart: kong
-        repo: https://charts.konghq.com
-        targetRevision: "2.21.0"
-        namespace: kong
-        valuesFile: values.yaml
-      - name: redis-sentinel
-        chart: redis
-        repo: https://charts.bitnami.com/bitnami
-        targetRevision: "17.3.2"
-        namespace: redis
-        valuesFile: redis-sentinel/values.yaml
-      - name: timescaledb
-        chart: postgresql
-        repo: https://charts.bitnami.com/bitnami
-        targetRevision: "11.2.0"
-        namespace: timescaledb
-        valuesFile: timescaledb/values.yaml
-  template:
-    metadata:
-      name: "{{name}}"
-    spec:
-      project: infrastructure
-      source:
-        repoURL: "{{repo}}"
-        targetRevision: "{{targetRevision}}"
-        chart: "{{chart}}"
-        helm:
-          valueFiles:
-            - "{{valuesFile}}"
-      destination:
-        server: https://kubernetes.default.svc
-        namespace: "{{namespace}}"
-      syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+
+  sources:
+  - repoURL: https://charts.konghq.com
+    chart: kong
+    targetRevision: "2.21.0"
+    namespace: kong
+    helm:
+      valueFiles:
+      - $values/kong/values.yaml
+  - repoURL: https://charts.bitnami.com/bitnami
+    chart: redis-sentinel
+    targetRevision: "17.3.2"
+    namespace: redis
+    helm:
+      valueFiles:
+      - $values/redis-sentinel/values.yaml
+
+  - repoURL: https://charts.timescale.com
+    chart: postgresql
+    targetRevision: "11.2.0"
+    namespace: timescaledb
+    helm:
+      valueFiles:
+      - $values/timescaledb/values.yaml
+  - repoURL: https://github.com/alhennessey92/traders_guild_dev.git
+    targetRevision: HEAD
+    ref: values
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+
+
+
+
+
+
+
+
+
+
+
+
+# apiVersion: argoproj.io/v1alpha1
+# kind: ApplicationSet
+# metadata:
+#   name: infrastructure-apps
+#   namespace: argocd
+# spec:
+#   generators:
+#   - list:
+#       elements:
+#       - name: kong
+#         chart: kong
+#         repo: https://charts.konghq.com
+#         targetRevision: "2.21.0"
+#         namespace: kong
+#         helm:
+#           valueFiles:
+#           - $values/kong/values.yaml
+#       - name: redis-sentinel
+#         chart: redis
+#         repo: https://charts.bitnami.com/bitnami
+#         targetRevision: "17.3.2"
+#         namespace: redis
+#         helm:
+#           valueFiles:
+#           - $values/redis-sentinel/values.yaml
+#       - name: timescaledb
+#         chart: postgresql
+#         repo: https://charts.bitnami.com/bitnami
+#         targetRevision: "11.2.0"
+#         namespace: timescaledb
+#         helm:
+#           valueFiles:
+#           - $values/timescaledb/values.yaml
+#   template:
+#     metadata:
+#       name: "{{name}}"
+#     spec:
+#       project: infrastructure
+#       source:
+#         repoURL: "{{repo}}"
+#         targetRevision: "{{targetRevision}}"
+#         chart: "{{chart}}"
+#         helm:
+#           valueFiles:
+#             - "{{valuesFile}}"
+#       destination:
+#         server: https://kubernetes.default.svc
+#         namespace: "{{namespace}}"
+#       syncPolicy:
+#         automated:
+#           prune: true
+#           selfHeal: true
