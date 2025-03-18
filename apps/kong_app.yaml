@@ -7,12 +7,12 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/Kong/charts
+    repoURL: https://charts.konghq.com
     chart: kong
-    targetRevision: 2.36.0  # Ensure latest stable version
+    targetRevision: 2.47.0  # Ensure latest stable version
     helm:
       valueFiles:
-        - https://github.com/alhennessey92/traders_guild_dev.git/main/values/kong-values.yaml
+        - https://github.com/alhennessey92/traders_guild_dev/apps/kong/values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: kong

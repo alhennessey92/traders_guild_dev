@@ -1,0 +1,21 @@
+ingressController:
+  enabled: true
+  installCRDs: true
+  env:
+    database: "off"
+    proxy_access_log: /dev/stdout
+    admin_gui_access_log: /dev/stdout
+    admin_access_log: /dev/stdout
+    admin_error_log: /dev/stderr
+    proxy_error_log: /dev/stderr
+    KONG_DATABASE: "off"
+    KONG_ADMIN_LISTEN: "0.0.0.0:8001"
+
+proxy:
+  type: LoadBalancer
+
+env:
+  KONG_PLUGINS: bundled, jwt, rate-limiting
+
+serviceMonitor:
+  enabled: true
