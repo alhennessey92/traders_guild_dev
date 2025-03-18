@@ -1,21 +1,51 @@
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: kong
+#   namespace: argocd
+
+# spec:
+#   project: default
+#   source:
+#     repoURL: https://charts.konghq.com
+#     chart: kong
+#     targetRevision: 2.47.0  # Ensure latest stable version
+#     helm:
+#       valueFiles:
+#         - https://github.com/alhennessey92/traders_guild_dev/apps/kong/values.yaml
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: kong
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - CreateNamespace=true
+
+
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: kong
   namespace: argocd
-
 spec:
-  project: default
-  source:
-    repoURL: https://charts.konghq.com
-    chart: kong
-    targetRevision: 2.47.0  # Ensure latest stable version
-    helm:
-      valueFiles:
-        - https://github.com/alhennessey92/traders_guild_dev/apps/kong/values.yaml
   destination:
-    server: https://kubernetes.default.svc
-    namespace: kong
+    namespace: prod
+    name: kind
+  project: default
+  sources:
+    # Chart from Chart Repo
+    - chart: kong
+      repoURL: https://charts.konghq.com
+      targetRevision: 2.47.0
+      helm:
+        valueFiles:
+        - $values/apps/kong/values.yaml
+    # Values from Git
+    - repoURL: 'https://github.com/alhennessey92/traders_guild_dev'
+      targetRevision: HEAD
+      ref: values
   syncPolicy:
     automated:
       prune: true
