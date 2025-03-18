@@ -4,7 +4,7 @@ metadata:
   name: infra-apps-main
 spec:
   destination:
-    server: https://kubernetes.default.svc
+    server: in-cluster
     namespace: argocd
   source:
     path: apps
