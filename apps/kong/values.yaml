@@ -30,9 +30,9 @@ serviceMonitor:
   enabled: true
 
 
-readinessProbe:
-  httpGet:
-    path: /status
-    port: 8001  # Ensure this is correct for Admin API
-  initialDelaySeconds: 10
-  periodSeconds: 5
+# readinessProbe:
+#   httpGet:
+#     path: /status
+#     port: 8001  # Ensure this is correct for Admin API
+#   initialDelaySeconds: 10
+#   periodSeconds: 5
