@@ -8,7 +8,7 @@ spec:
     namespace: argocd
   source:
     path: apps
-    repoURL: https://github.com/alhennessey92/traders_guild_dev.git
+    repoURL: https://github.com/alhennessey92/traders_guild_dev
     targetRevision: HEAD
     directory: {}
   project: default
