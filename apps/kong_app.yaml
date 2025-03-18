@@ -31,8 +31,8 @@ metadata:
   namespace: argocd
 spec:
   destination:
-    namespace: prod
-    name: kind
+    namespace: argocd
+    name: https://kubernetes.default.svc
   project: default
   sources:
     # Chart from Chart Repo
