@@ -1,3 +1,12 @@
+admin:
+  enabled: true
+  type: ClusterIP
+  http:
+    enabled: true
+    servicePort: 8001  # Ensure it's accessible within the cluster
+  tls:
+    enabled: false  # Disable TLS for simplicity (use HTTPS if needed)
+    
 ingressController:
   enabled: true
   installCRDs: true
