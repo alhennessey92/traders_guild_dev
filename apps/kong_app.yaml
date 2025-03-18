@@ -36,7 +36,7 @@ spec:
   project: default
   sources:
     # Chart from Chart Repo
-    - chart: kong/kong
+    - chart: kong
       repoURL: https://charts.konghq.com
       targetRevision: 2.47.0
       helm:
