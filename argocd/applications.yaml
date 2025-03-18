@@ -10,32 +10,6 @@ spec:
     server: https://kubernetes.default.svc
     namespace: default
 
-  sources:
-  - repoURL: https://charts.konghq.com
-    chart: kong
-    targetRevision: "2.21.0"
-    namespace: kong
-    helm:
-      valueFiles:
-      - $values/kong/values.yaml
-  - repoURL: https://charts.bitnami.com/bitnami
-    chart: redis-sentinel
-    targetRevision: "17.3.2"
-    namespace: redis
-    helm:
-      valueFiles:
-      - $values/redis-sentinel/values.yaml
-
-  - repoURL: https://charts.timescale.com
-    chart: postgresql
-    targetRevision: "11.2.0"
-    namespace: timescaledb
-    helm:
-      valueFiles:
-      - $values/timescaledb/values.yaml
-  - repoURL: https://github.com/alhennessey92/traders_guild_dev.git
-    targetRevision: HEAD
-    ref: values
 
   syncPolicy:
     automated:
