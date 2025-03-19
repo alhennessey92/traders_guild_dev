@@ -11,7 +11,7 @@ spec:
   sources:
     - chart: redis
       repoURL: https://charts.bitnami.com/bitnami
-      targetRevision: latest
+      targetRevision: 18.1.3
       helm:
         valueFiles:
           - $values/apps/redis-sentinel/values.yaml
