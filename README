@@ -1,0 +1,13 @@
+Traders Guild Infrastructure Repository
+
+Repository to configure and deploy infrastructure services for Traders Guild
+
+Services deployed to a GKE Cluster on google cloud
+
+Services will be maintained through a CD pipeline by Argocd
+
+Services
+   - Kong ingress Controller - API gateway, authentication, loadbalancing etc...
+   - Redis Sentinel - Pub/Sub message queue for all microservices
+   - TimescaleDB - database to store all data including, user, app and stock data
+   - FastAPI - python microservices for all computation and algorithms
