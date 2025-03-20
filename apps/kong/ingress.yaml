@@ -8,13 +8,12 @@ metadata:
 spec:
   ingressClassName: kong
   rules:
-  - host: api.tgbackend.com
-    http:
+  - http:
       paths:
-      - path: /api
+      - path: /message
         pathType: Prefix
         backend:
           service:
-            name: fastapi-service
+            name: fastapi
             port:
-              number: 8000
+              number: 80
