@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: event-watcher
+  namespace: kube-system
+spec:
+  containers:
+    - name: kubectl
+      image: bitnami/kubectl:latest  # Kubectl image to interact with the cluster
+      command:
+        - /bin/sh
+        - -c
+        - |
+          echo "Starting event watcher..."
+          kubectl get events --watch -n kube-system | while read event
+          do
+            # Watch for scale-up or scale-down events
+            if echo $event | grep -q "ScalingNodePool"; then
+              if echo $event | grep -q "ScalingDown"; then
+                echo "Scaling down detected, deleting Kong LoadBalancer..."
+                kubectl delete svc kong-proxy -n kong
+              elif echo $event | grep -q "ScalingUp"; then
+                echo "Scaling up detected, syncing Kong via ArgoCD..."
+                argocd app sync kong --grpc-web
+              fi
+            fi
+          done
