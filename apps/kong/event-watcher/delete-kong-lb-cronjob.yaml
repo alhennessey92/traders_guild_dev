@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: delete-kong-lb
-  namespace: kong
+  namespace: argocd
 spec:
   schedule: "*/5 * * * *"  # Runs every 5 minutes to check if scaling down occurred
   jobTemplate:
