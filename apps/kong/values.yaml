@@ -6,7 +6,7 @@ admin:
     servicePort: 8001  # Ensure it's accessible within the cluster
   tls:
     enabled: false  # Disable TLS for simplicity (use HTTPS if needed)
-    
+
 ingressController:
   enabled: true
   installCRDs: true
@@ -19,15 +19,20 @@ ingressController:
     proxy_error_log: /dev/stderr
     KONG_DATABASE: "off"
     KONG_ADMIN_LISTEN: "0.0.0.0:8001"
+    KONG_PROXY_LISTEN: "0.0.0.0:8000, 0.0.0.0:8443 ssl"
+    KONG_PORT_MAPS: "80:8000,443:8443"  # Maps external ports to Kong's internal ones
 
 proxy:
-  type: LoadBalancer
+  type: NodePort  # Remove LoadBalancer to avoid unnecessary costs
 
 env:
-  KONG_PLUGINS: bundled, jwt, rate-limiting
+  KONG_PLUGINS: bundled, jwt, rate-limiting  # Ensure JWT and rate limiting are available
 
 serviceMonitor:
   enabled: true
+
+
+
 
 
 # readinessProbe:
