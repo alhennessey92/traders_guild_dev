@@ -2,10 +2,10 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: kong
-  namespace: kong
+  namespace: argocd
 spec:
   destination:
-    namespace: argocd
+    namespace: kong
     name: in-cluster
   project: default
   sources:
