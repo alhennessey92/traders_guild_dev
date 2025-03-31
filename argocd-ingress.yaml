@@ -3,7 +3,14 @@ kind: Ingress
 metadata:
   name: argocd-ingress
   namespace: argocd
+  annotations:
+    kubernetes.io/ingress.class: "kong"  # Use your Ingress Controller (e.g., Kong, Nginx)
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
+  tls:
+  - hosts:
+    - argocd.tg-backend.com
+    secretName: argocd-tls  # Ensure this secret exists or create one
   rules:
     - host: argocd.tg-backend.com
       http:
