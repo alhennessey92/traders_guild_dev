@@ -23,7 +23,8 @@ ingressController:
     KONG_PORT_MAPS: "80:8000,443:8443"  # Maps external ports to Kong's internal ones
 
 proxy:
-  type: NodePort  # Remove LoadBalancer to avoid unnecessary costs
+  type: LoadBalancer  # Change to LoadBalancer
+  loadBalancerIP: "34.8.171.22"  # Replace with your reserved static IP from GCP
 
 env:
   KONG_PLUGINS: bundled, jwt, rate-limiting  # Ensure JWT and rate limiting are available
