@@ -9,7 +9,6 @@ metadata:
     konghq.com/ssl-verify: "true"
     konghq.com/ssl-cert: "argocd-tls-cert"
 spec:
-  ingressClassName: kong
   rules:
     - host: argocd.tg-backend.com
       http:
