@@ -22,6 +22,18 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: argocd-server
+                name: kong-proxy  # 🔹 Changed from `argocd-server` to `kong-proxy` since Kong handles routing
                 port:
-                  number: 80
+                  number: 443 
+  # rules:
+  #   - host: argocd.tg-backend.com
+  #     http:
+  #       paths:
+  #         - path: /
+  #           pathType: Prefix
+  #           backend:
+  #             service:
+  #               name: argocd-server
+  #               port:
+  #                 number: 80
+              
