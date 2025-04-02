@@ -10,6 +10,10 @@ metadata:
     konghq.com/ssl-cert: "argocd-tls-cert"
 spec:
   ingressClassName: kong
+  tls:   # 🔹 Add TLS Section
+    - hosts:
+        - argocd.tg-backend.com
+      secretName: argocd-tls-cert
   rules:
     - host: argocd.tg-backend.com
       http:

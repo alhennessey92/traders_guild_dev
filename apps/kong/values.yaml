@@ -25,6 +25,11 @@ ingressController:
 proxy:
   type: LoadBalancer  # Change to LoadBalancer
   loadBalancerIP: "34.70.170.151"  # Replace with your reserved static IP from GCP
+  annotations: {}
+  http:
+    enabled: true
+  tls:
+    enabled: true
 
 env:
   KONG_PLUGINS: bundled, jwt, rate-limiting  # Ensure JWT and rate limiting are available
